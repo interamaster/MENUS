@@ -24,7 +24,7 @@
     <TextView
         android:id="@+id/textview_book_name"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="330dp"
         android:textSize="40dp"
         tools:text="Are You My Mother"
         android:textStyle="bold"
