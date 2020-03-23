@@ -1,6 +1,7 @@
 package com.example.menus;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -113,7 +114,20 @@ public class MyAdapter extends BaseAdapter {
         }
 
 
+    if (MainActivity.esFinde){
+        if (position<=1) {
 
+            nameTextView.setBackgroundColor(Color.GREEN);
+        }
+
+        else{
+
+            nameTextView.setBackgroundColor(Color.RED);
+        }
+
+    }
+
+    else{
         //color distintos
 
         if (position<=4){
@@ -128,6 +142,8 @@ public class MyAdapter extends BaseAdapter {
             nameTextView.setBackgroundColor( 0xFFdb9e50);
 
         }
+    }
+
         return convertView;
     }
 

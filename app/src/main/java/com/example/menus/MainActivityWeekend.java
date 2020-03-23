@@ -1,22 +1,15 @@
 package com.example.menus;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -25,37 +18,31 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
-
-    //v1.1 añadido finde menus
-
+public class MainActivityWeekend extends AppCompatActivity {
 
 
     List<String> arraycomidas = new ArrayList<String>();
     private GridView gridview;
     MyAdapter comidaadpter;
-    public static boolean esFinde=false;//dsde aqui controlo si es finde o no para elegir coimda en Mainactivityweekend
-
-
 
     List<String> arrayfavorites = new ArrayList<String>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_weekend);
 
-        esFinde=false;
+        MainActivity.esFinde=true;
+
 
 
         //recuperamos
 
 
-        arraycomidas=getArrayList("mio1");
+        arraycomidas=getArrayList("mio1finde");
 
 
-        arrayfavorites=getArrayList("mio2");
+        arrayfavorites=getArrayList("mio2finde");
 
 
 
@@ -68,19 +55,14 @@ public class MainActivity extends AppCompatActivity {
             //locreamos la primera vez
             arraycomidas.add("COMIDA 1");
             arraycomidas.add("COMIDA 2");
-            arraycomidas.add("COMIDA 3");
-            arraycomidas.add("COMIDA 2");
-            arraycomidas.add("COMIDA 5");
             arraycomidas.add("CENA 1");
             arraycomidas.add("CENA 2");
-            arraycomidas.add("CENA 3");
-            arraycomidas.add("CENA 4");
-            arraycomidas.add("CENA 5");
+
 
 
             //lo guardamos
 
-            saveArrayList((ArrayList<String>) arraycomidas,"mio1");
+            saveArrayList((ArrayList<String>) arraycomidas,"mio1finde");
 
 
 
@@ -97,24 +79,17 @@ public class MainActivity extends AppCompatActivity {
             arrayfavorites.add("false");
             arrayfavorites.add("false");
             arrayfavorites.add("false");
-            arrayfavorites.add("false");
-            arrayfavorites.add("false");
-            arrayfavorites.add("false");
-            arrayfavorites.add("false");
-            arrayfavorites.add("false");
-            arrayfavorites.add("false");
 
 
             //lo guardamos
 
-            saveArrayList((ArrayList<String>) arrayfavorites,"mio2");
+            saveArrayList((ArrayList<String>) arrayfavorites,"mio2finde");
 
 
 
 
 
         }
-
 
 
         gridview = (GridView) findViewById(R.id.gridview);
@@ -139,39 +114,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-        //boton add email
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.weekend);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-
-               // iniciamos el finde activity
-                Intent i = new Intent(getApplicationContext(), MainActivityWeekend.class);
-
-
-                startActivity(i);
-
-            }
-            });
-
-
-
-
-
-
-
     }
-
-
-    /**
-     *     Save and get ArrayList in SharedPreference
-     */
 
     public void saveArrayList(ArrayList<String> list, String key){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -190,23 +133,21 @@ public class MainActivity extends AppCompatActivity {
         return gson.fromJson(json, type);
     }
 
-
-
     @Override
     protected void onResume() {
 
+        MainActivity.esFinde=true;
+
+
         //hay q referscar
-
-        esFinde=false;
-
 
 
         //recuperamos
 
 
-        arraycomidas=getArrayList("mio1");
+        arraycomidas=getArrayList("mio1finde");
 
-        arrayfavorites=getArrayList("mio2");
+        arrayfavorites=getArrayList("mio2finde");
 
 
         comidaadpter=null;
@@ -234,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView favorite = (ImageView) v.findViewById(R.id.imageview_favorite);
         Integer positionfav=(Integer)view.getTag();
 
-       // if (favorite.getDrawable().equals(getResources().getDrawable(R.drawable.estrellaon))){
+        // if (favorite.getDrawable().equals(getResources().getDrawable(R.drawable.estrellaon))){
 
         if(favorite.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.estrellaon).getConstantState())){
 
@@ -242,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            Log.d("INFO","pulsado fav num:"+positionfav);
+            Log.d("INFO","pulsado finde num:"+positionfav);
 
 
             //PARA CAMBIAR EL VALOR:
@@ -250,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
 
             //lo guardamos
 
-            saveArrayList((ArrayList<String>) arrayfavorites,"mio2");
+            saveArrayList((ArrayList<String>) arrayfavorites,"mio2finde");
 
         }
 
@@ -263,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
 
             //lo guardamos
 
-            saveArrayList((ArrayList<String>) arrayfavorites,"mio2");
+            saveArrayList((ArrayList<String>) arrayfavorites,"mio2finde");
         }
 
 

@@ -92,8 +92,18 @@ public class MainActivityEntradadatos extends ListActivity {
 
         //recuperamos
 
+        if (MainActivity.esFinde){
+            //es findeç
 
-        arraycomidas=getArrayList("mio1");
+            arraycomidas=getArrayList("mio1finde");
+        }
+        else {
+
+            //noe s finde..normal
+
+            arraycomidas=getArrayList("mio1");
+        }
+
 
 
 
@@ -315,7 +325,21 @@ public class MainActivityEntradadatos extends ListActivity {
 
         //lo guardamos
 
-        saveArrayList((ArrayList<String>) arraycomidas,"mio1");
+        if (MainActivity.esFinde){
+            //esfinde
+
+            saveArrayList((ArrayList<String>) arraycomidas,"mio1finde");
+
+        }
+
+        else {
+
+            //no e sfinde
+
+
+            saveArrayList((ArrayList<String>) arraycomidas,"mio1");
+        }
+
 
 
         //volvemos
