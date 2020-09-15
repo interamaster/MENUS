@@ -51,6 +51,8 @@ import java.util.TreeMap;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static com.example.menus.TodoListSQLHelper.COL1_TASK;
+import static com.example.menus.TodoListSQLHelper.TABLE_NAME;
 
 //v1.0 v1 final con acceso a datos de uso para poder volver a la app anterior y exportar db a downloads
 //v1.1 final ya funciona el import¡¡¡
@@ -205,7 +207,7 @@ public class MainActivityEntradadatos extends ListActivity {
                                     values.clear();
 
                                     //write the Todo task input into database table
-                                    values.put(TodoListSQLHelper.COL1_TASK, nameInput);
+                                    values.put(COL1_TASK, nameInput);
 
                                     sqLiteDatabase.insertWithOnConflict(TodoListSQLHelper.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
 
@@ -276,16 +278,18 @@ public class MainActivityEntradadatos extends ListActivity {
         SQLiteDatabase sqLiteDatabase = todoListSQLHelper.getReadableDatabase();
 
         //cursor to read todo task list from database
+
+        String orderBy =COL1_TASK+" ASC ";
         Cursor cursor = sqLiteDatabase.query(TodoListSQLHelper.TABLE_NAME,
-                new String[]{TodoListSQLHelper._ID, TodoListSQLHelper.COL1_TASK },
-                null, null, null, null, null);
+                new String[]{TodoListSQLHelper._ID, COL1_TASK },
+                null, null, null, null, orderBy);
 
         //binds the todo task list with the UI
         todoListAdapter = new SimpleCursorAdapter(
                 this,
                 R.layout.listecomidas,
                 cursor,
-                new String[]{TodoListSQLHelper.COL1_TASK},
+                new String[]{COL1_TASK},
                 new int[]{R.id.namelista},
                 0
         );
@@ -385,7 +389,7 @@ public class MainActivityEntradadatos extends ListActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 String deleteTodoItemSql = "DELETE FROM " + TodoListSQLHelper.TABLE_NAME +
-                        " WHERE " + TodoListSQLHelper.COL1_TASK + " = '" + borrarnombre + "'";
+                        " WHERE " + COL1_TASK + " = '" + borrarnombre + "'";
 
                 todoListSQLHelper = new TodoListSQLHelper(MainActivityEntradadatos.this);
                 SQLiteDatabase sqlDB = todoListSQLHelper.getWritableDatabase();
